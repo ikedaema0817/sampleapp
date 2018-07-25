@@ -8,8 +8,8 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       log_in user
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-      redirect_to user
       # ユーザーログイン後にユーザー情報のページにリダイレクトする
+      redirect_back_or user
     else
       # エラーメッセージを作成する
       flash.now[:danger] = 'Invalid email/password combination' # 本当は正しくない
